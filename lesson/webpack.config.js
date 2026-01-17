@@ -6,6 +6,19 @@ module.exports = {
   entry: {
     main: './src/index.js', // 该写法是上一行代码的完整写法，main 为 chunk 名
   },
+  module: {
+    // 配置模块打包规则
+    rules: [
+      {
+        test: /\.jpg$/, // .jpg 结尾的文件
+        type: 'asset/resource', // 使用 webpack 5 内置的资源模块，等价于 file-loader
+        // webpack 5 之前的版本需要单独安装 loader
+        // use: {
+        //   loader: 'file-loader',
+        // },
+      },
+    ],
+  },
   output: {
     filename: 'bundle.js', // 打包输出的文件名，默认为 main.js
     path: path.resolve(__dirname, 'dist'), // 打包输出的目录名(绝对路径)，默认为 dist
