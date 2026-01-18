@@ -37,3 +37,15 @@ npx webpack index.js
 ```bash
 npx webpack --config webpackconfig.js
 ```
+
+## loaders
+
+告诉 webpack 处理模块的规则
+
+## plugin
+
+在 webpack 运行到某个时刻时做一些事情
+
+## html-webpack-plugin
+
+在打包结束后自动生成一个 html 文件，并把打包生成的 js 自动引入到这个 html 文件中。

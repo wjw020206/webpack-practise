@@ -1,4 +1,5 @@
 const path = require('path') // node.js 的 path 核心模块
+const HtmlWebpackPlugin = require('html-webpack-plugin') // 在打包结束后自动生成一个 html 文件，并把打包生成的 js 自动引入到这个 html 文件中
 
 module.exports = {
   mode: 'development', // 模式, 'production' 打包会压缩代码，'development' 不会，默认是 'production', 不添加 mode，打包时控制台会有警告
@@ -92,4 +93,9 @@ module.exports = {
     filename: 'bundle.js', // 打包输出的文件名，默认为 main.js
     path: path.resolve(__dirname, 'dist'), // 打包输出的目录名(绝对路径)，默认为 dist
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'src/index.html', // 指定 html 的模版文件（相对或绝对路径）
+    }),
+  ],
 }
