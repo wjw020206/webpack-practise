@@ -27,7 +27,7 @@ module.exports = {
         // },
       }, */
       {
-        test: /\.(jpg|png|gif)/,
+        test: /\.(jpg|png|gif)$/,
         type: 'asset', // 使用 webpack 5 内置的资源模块，导出一个资源的 data URI，等价于 url-loader
         generator: {
           filename: '[name]_[hash][ext]',
@@ -48,6 +48,20 @@ module.exports = {
         //     limit: 2048, // 当图片大小超过 2kb(2048Byte) 时，使用 file-loader 一样的效果，反之则使用 base64
         //   },
         // },
+      },
+      // {
+      //   test: /\.css$/,
+      //   use: ['style-loader', 'css-loader'], // css-loader 负责处理 css 文件之间的关系，style-loader 负责将处理好的 css 文件插入到页面的 head 标签的 style 标签中
+      // },
+      {
+        test: /\.scss$/,
+        // loader 执行顺序为从下到上，从右到左
+        use: [
+          'style-loader', // 将 JS 字符串生成为 style 节点
+          'css-loader', // 将 CSS 转化成 CommonJS 模块
+          'sass-loader', // 将 Sass 编译成 CSS
+          'postcss-loader', // 为 CSS 语句自动添加加浏览器前缀
+        ],
       },
     ],
   },
