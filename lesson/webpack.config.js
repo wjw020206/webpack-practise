@@ -90,8 +90,9 @@ module.exports = {
     ],
   },
   output: {
-    filename: 'bundle.js', // 打包输出的文件名，默认为 main.js
+    filename: 'dist.js', // 打包输出的文件名，默认为 main.js
     path: path.resolve(__dirname, 'dist'), // 打包输出的目录名(绝对路径)，默认为 dist
+    clean: true, // 在生成文件之前清空 output 目录，在 webpack 4 中需要使用 clean-webpack-plugin
   },
   plugins: [
     new HtmlWebpackPlugin({

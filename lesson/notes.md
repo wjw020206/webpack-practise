@@ -49,3 +49,7 @@ npx webpack --config webpackconfig.js
 ## html-webpack-plugin
 
 在打包结束后自动生成一个 html 文件，并把打包生成的 js 自动引入到这个 html 文件中。
+
+## clean-webpack-plugin
+
+在打包前先清理已经存在的打包文件夹。
