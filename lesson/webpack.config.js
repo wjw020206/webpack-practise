@@ -5,7 +5,8 @@ module.exports = {
   mode: 'development', // 模式, 'production' 打包会压缩代码，'development' 不会，默认是 'production', 不添加 mode，打包时控制台会有警告
   // entry: './src/index.js', // 打包的入口文件,默认为 index.js
   entry: {
-    main: './src/index.js', // 该写法是上一行代码的完整写法，main 为 chunk 名
+    main: './src/index.js', // 该写法是上一行代码的完整写法，main 为 chunk 名，main 为默认的打包生成文件名
+    sub: './src/index.js',
   },
   module: {
     // 配置模块打包规则
@@ -90,7 +91,9 @@ module.exports = {
     ],
   },
   output: {
-    filename: 'dist.js', // 打包输出的文件名，默认为 main.js
+    publicPath: 'http://cdn.com.cn', // 配置在浏览器中所引用的「此输出目录对应的公开 URL」
+    // filename: 'bundle.js', // 打包输出的文件名，默认为 main.js
+    filename: '[name].js', // 打包多个文件时使用对应 entry 中的属性名称（main 和 sub）
     path: path.resolve(__dirname, 'dist'), // 打包输出的目录名(绝对路径)，默认为 dist
     clean: true, // 在生成文件之前清空 output 目录，在 webpack 4 中需要使用 clean-webpack-plugin
   },
