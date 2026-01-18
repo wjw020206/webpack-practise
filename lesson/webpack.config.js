@@ -53,15 +53,38 @@ module.exports = {
       //   test: /\.css$/,
       //   use: ['style-loader', 'css-loader'], // css-loader 负责处理 css 文件之间的关系，style-loader 负责将处理好的 css 文件插入到页面的 head 标签的 style 标签中
       // },
+      // {
+      //   test: /\.scss$/,
+      //   // loader 执行顺序为从下到上，从右到左
+      //   use: [
+      //     'style-loader', // 将 JS 字符串生成为 style 节点
+      //     'css-loader', // 将 CSS 转化成 CommonJS 模块
+      //     'sass-loader', // 将 Sass 编译成 CSS
+      //     'postcss-loader', // 为 CSS 语句自动添加加浏览器前缀
+      //   ],
+      // },
       {
         test: /\.scss$/,
-        // loader 执行顺序为从下到上，从右到左
         use: [
-          'style-loader', // 将 JS 字符串生成为 style 节点
-          'css-loader', // 将 CSS 转化成 CommonJS 模块
-          'sass-loader', // 将 Sass 编译成 CSS
-          'postcss-loader', // 为 CSS 语句自动添加加浏览器前缀
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 2, // 通过 @import 的样式文件也需要先经过 postcss-loader 和 sass-loader
+              // modules: true, // 开启 CSS 模块化打包
+            },
+          },
+          'postcss-loader',
+          'sass-loader',
         ],
+      },
+      {
+        test: /\.(woff|woff2|ttf)$/,
+        type: 'asset/resource',
+        // webpack 5 之前的版本需要单独安装 loader
+        // use: {
+        //   loader: 'file-loader',
+        // },
       },
     ],
   },
