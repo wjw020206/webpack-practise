@@ -73,3 +73,58 @@ npx webpack --config webpackconfig.js
 ## clean-webpack-plugin
 
 在打包前先清理已经存在的打包文件夹。
+
+## sourceMap
+
+是打包文件和源代码文件之间的映射关系。
+
+**devtool 关键字的含义**
+
+- `source-map`
+  - 是否生成 .map 文件，决定调试能力上限
+
+- `inline`
+  - 不生成 .map 的文件，已 base64 的形式内嵌进代码中
+
+- `cheap`
+  - 不包含列信息，只定位到行（更快）
+
+- `module`
+  - 能映射 loader 之前的源码（babel / ts 必须）
+
+- `eval`
+  - 速度快，用 eval() 包代码
+
+- `hidden`
+  - 生成 .map 的文件，但浏览器看不不到，错误监控平台能用
+
+- `false`
+  - 关闭 sourceMap
+
+**最佳实践**
+
+在生产环境中
+
+- 不暴露源码（浏览器中不可见） + 可监控错误（最常见）
+
+  ```js
+  devtool: 'hidden-source-map'
+  ```
+
+- 需要完整调试能力（内部系统）
+
+  ```js
+  devtool: 'source-map',
+  ```
+
+- 预发布的时候
+
+  ```js
+  devtool: 'cheap-module-source-map',
+  ```
+
+在开发环境中推荐使用
+
+```js
+devtool: 'eval-cheap-module-source-map'
+```

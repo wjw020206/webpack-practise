@@ -29,8 +29,10 @@ img.classList.add(style.avatar)
 var root = document.getElementById('root')
 root.append(img) */
 
-import './index.scss'
+// import './index.scss'
 
-var root = document.getElementById('root')
+// var root = document.getElementById('root')
 
-root.innerHTML = '<div class="iconfont icon-home"></div>'
+// root.innerHTML = '<div class="iconfont icon-home"></div>'
+
+consele.log('hello world')
