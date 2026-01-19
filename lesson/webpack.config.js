@@ -105,4 +105,20 @@ module.exports = {
       template: 'src/index.html', // 指定 html 的模版文件（相对或绝对路径）
     }),
   ],
+  devServer: {
+    static: './dist', // 运行本地开发服务的目录，在 webpack 4 中为 contentBase
+    // open: true, // 在系统默认浏览器中打开
+    open: {
+      app: {
+        name: 'Google Chrome',
+      },
+    },
+    port: 8090,
+    proxy: [
+      {
+        context: ['/api'],
+        target: 'http://localhost:3000',
+      },
+    ],
+  },
 }

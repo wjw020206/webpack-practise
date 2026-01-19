@@ -128,3 +128,50 @@ npx webpack --config webpackconfig.js
 ```js
 devtool: 'eval-cheap-module-source-map'
 ```
+
+## 提升 webpack 的开发效率
+
+1. **配置 --watch**
+
+   在 package.json 中添加如下 script。
+
+   ```js
+    "watch": "webpack --watch"
+   ```
+
+   可以让 webpack 监听文件的变化，自动进行打包。
+
+   **缺点：** 只能通过 file:// 方式打开页面，页面需要手动刷新。
+
+2. **使用 webpack-dev-server 开发（推荐）**
+
+   先通过 npm 安装 `webpack-dev-server` 依赖，在 package.json 中添加如下 script。
+
+   ```js
+   "start": "webpack-dev-server",
+   ```
+
+   可以让 webpack 监听文件的变化，自动进行打包，并启动一个 http 服务器来实时刷新网页。
+
+3. **在 node 中使用 webpack**
+
+   ```js
+   const express = require('express')
+   const webpack = require('webpack')
+   const webpackDevMiddleware = require('webpack-dev-middleware')
+   const config = require('./webpack.config.js')
+   const complier = webpack(config) // 获取 webpack 编译器
+
+   const app = express()
+
+   // express 使用 webpack-dev-middleware 中间件
+   app.use(
+     webpackDevMiddleware(complier, {
+       publicPath: config.output.publicPath, // 与配置文件中的 publicPath 保持一致
+     }),
+   )
+
+   app.listen(3000, () => {
+     console.log('server is running')
+   })
+   ```

@@ -35,4 +35,4 @@ root.append(img) */
 
 // root.innerHTML = '<div class="iconfont icon-home"></div>'
 
-consele.log('hello world')
+console.log('hello world! CodePencil!')
