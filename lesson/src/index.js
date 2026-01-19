@@ -35,4 +35,31 @@ root.append(img) */
 
 // root.innerHTML = '<div class="iconfont icon-home"></div>'
 
-console.log('hello world! CodePencil!')
+// import './index.css'
+
+// var btn = document.createElement('button')
+// btn.innerHTML = '新增'
+// document.body.appendChild(btn)
+
+// btn.onclick = function () {
+//   var div = document.createElement('div')
+//   div.innerHTML = 'item'
+//   document.body.appendChild(div)
+// }
+
+import counter from './counter'
+import number from './number'
+
+counter()
+number()
+
+// 配置 JS 模块的 HMR 刷新
+// 当 loader 中没有内置 HMR 的相关配置时，需要编写如下代码来支持 HMR
+// 判断当前模块的 HMR 是否开启
+if (module.hot) {
+  // 监听相关的依赖，更新时触发回调
+  module.hot.accept('./number', () => {
+    document.body.removeChild(document.getElementById('number'))
+    number()
+  })
+}

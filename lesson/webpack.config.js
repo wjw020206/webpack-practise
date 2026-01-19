@@ -84,6 +84,19 @@ module.exports = {
         ],
       },
       {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+            },
+          },
+          'postcss-loader',
+        ],
+      },
+      {
         test: /\.(woff|woff2|ttf)$/,
         type: 'asset/resource',
         // webpack 5 之前的版本需要单独安装 loader
@@ -113,7 +126,9 @@ module.exports = {
         name: 'Google Chrome',
       },
     },
-    port: 8090,
+    port: 8080,
+    // hot: true, // 是否启用热模块更换（HMR），webpack-dev-server v4 起，HMR 默认启用
+    hot: 'only', // 即使热模块更换（HMR）失效了，也无需刷新页面即可恢复
     proxy: [
       {
         context: ['/api'],
