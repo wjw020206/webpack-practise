@@ -47,19 +47,25 @@ root.append(img) */
 //   document.body.appendChild(div)
 // }
 
-import counter from './counter'
-import number from './number'
+// import counter from './counter'
+// import number from './number'
 
-counter()
-number()
+// counter()
+// number()
 
-// 配置 JS 模块的 HMR 刷新
-// 当 loader 中没有内置 HMR 的相关配置时，需要编写如下代码来支持 HMR
-// 判断当前模块的 HMR 是否开启
-if (module.hot) {
-  // 监听相关的依赖，更新时触发回调
-  module.hot.accept('./number', () => {
-    document.body.removeChild(document.getElementById('number'))
-    number()
-  })
-}
+// // 配置 JS 模块的 HMR 刷新
+// // 当 loader 中没有内置 HMR 的相关配置时，需要编写如下代码来支持 HMR
+// // 判断当前模块的 HMR 是否开启
+// if (module.hot) {
+//   // 监听相关的依赖，更新时触发回调
+//   module.hot.accept('./number', () => {
+//     document.body.removeChild(document.getElementById('number'))
+//     number()
+//   })
+// }
+
+const arr = [new Promise(() => {}), new Promise(() => {})]
+
+arr.map((item) => {
+  console.log(item)
+})

@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin') // 在打包结束后�
 
 module.exports = {
   mode: 'development', // 模式, 'production' 打包会压缩代码，'development' 不会，默认是 'production', 不添加 mode，打包时控制台会有警告
-  devtool: 'eval-cheap-module-source-map',
+  // devtool: 'eval-cheap-module-source-map',
   // devtool: 'eval-cheap-module-source-map', // 推荐开发环境使用这种
   // devtool: 'cheap-module-source-map', // 推荐生产环境使用这种
   // entry: './src/index.js', // 打包的入口文件,默认为 index.js
@@ -14,6 +14,13 @@ module.exports = {
   module: {
     // 配置模块打包规则
     rules: [
+      {
+        test: /\.m?js$/,
+        exclude: /node_modules/, // 排除目录
+        use: {
+          loader: 'babel-loader',
+        },
+      },
       /* {
         test: /\.(jpg|png|gif)$/, // 匹配 .jpg、.png、.gif 结尾的文件
         type: 'asset/resource', // 使用 webpack 5 内置的资源模块，将文件发送到输出目录，等价于 file-loader

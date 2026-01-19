@@ -13,7 +13,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.28.6",
+    "@babel/plugin-transform-runtime": "^7.28.5",
+    "@babel/preset-env": "^7.28.6",
     "autoprefixer": "^10.4.23",
+    "babel-loader": "^10.0.0",
     "css-loader": "^7.1.2",
     "express": "^5.2.1",
     "html-webpack-plugin": "^5.6.6",
@@ -26,5 +30,10 @@
     "webpack-cli": "^6.0.1",
     "webpack-dev-middleware": "^7.4.5",
     "webpack-dev-server": "^5.2.3"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.28.6",
+    "@babel/runtime-corejs3": "^7.28.6",
+    "core-js": "^3.47.0"
   }
 }

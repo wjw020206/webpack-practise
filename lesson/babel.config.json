@@ -1,0 +1,26 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        // "targets": {
+        //   "chrome": "67" // 目标浏览器版本如果支持 ES6 语法，就不进行转译
+        // },
+        // "useBuiltIns": "usage", // 按需引入，'entry' 为全量引入
+        // "corejs": "3.47.0" // 指定 core.js 的版本，默认是 corejs 2 的版本
+      }
+    ]
+  ],
+  "plugins": [
+    [
+      "@babel/plugin-transform-runtime", // 可以避免 corejs 和 babel 的辅助函数或者 polyfill 污染全局环境
+      {
+        "absoluteRuntime": false, // 是否使用绝对路径，对于 monorepo 等特殊场景可能用 true
+        "corejs": 3, // 指定 core.js 的版本
+        "helpers": true, // 开启 Babel helper 复用
+        "regenerator": true, // 把 async / await、generator 相关代码从 @babel/runtime/regenerator 引入
+        "version": "7.0.0-beta.0" // 历史兼容字段，用来指定 @babel/runtime 的版本
+      }
+    ]
+  ]
+}
