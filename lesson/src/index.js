@@ -64,8 +64,16 @@ root.append(img) */
 //   })
 // }
 
-const arr = [new Promise(() => {}), new Promise(() => {})]
+// const arr = [new Promise(() => {}), new Promise(() => {})]
 
-arr.map((item) => {
-  console.log(item)
-})
+// arr.map((item) => {
+//   console.log(item)
+// })
+
+import { createRoot } from "react-dom/client";
+
+function App() {
+  return <div>Hello World</div>;
+}
+
+createRoot(document.getElementById("root")).render(<App />);
