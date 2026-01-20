@@ -98,9 +98,19 @@ root.append(img) */
 //   )
 // }
 
-// getComponent().then((element) => {
-//   document.body.appendChild(element)
-// })
+async function getComponent() {
+  const { default: _ } = await import(/* webpackChunkName: "lodash" */ 'lodash')
+
+  const element = document.createElement('div')
+  element.innerHTML = _.join(['Code', 'Pencil'], '-')
+  return element
+}
+
+document.addEventListener('click', () => {
+  getComponent().then((element) => {
+    document.body.appendChild(element)
+  })
+})
 
 // 同步代码写法
 // import _ from 'lodash'

@@ -279,3 +279,36 @@ optimization: {
    ```
 
    webpack 会自动识别 `import()` 进行代码分割。
+
+## Lazy Loading 懒加载
+
+指的是使用 `import()` 异步动态加载模块的语法，例如：
+
+```js
+function getComponent() {
+  return import(/* webpackChunkName: "lodash" */ 'lodash').then(
+    ({ default: _ }) => {
+      var element = document.createElement('div')
+      element.innerHTML = _.join(['Code', 'Pencil'], '-')
+      return element
+    },
+  )
+}
+
+// 只有当点击事件触发了才会加载 lodash
+document.addEventListener('click', () => {
+  getComponent().then((element) => {
+    document.body.appendChild(element)
+  })
+})
+```
+
+优点：按需加载，页面加载速度更快。
+
+## Chunk
+
+打包工具在构建过程中生成的代码块单位。
+
+例如打包出了 loadash.js、main.js。
+
+在构建过程中生成了 main chunk 和 lodash chunk，它们最终分别输出为 main.js 和 lodash.js 这两个 bundle 文件。
