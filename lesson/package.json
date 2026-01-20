@@ -40,6 +40,7 @@
     "@babel/runtime": "^7.28.6",
     "@babel/runtime-corejs3": "^7.28.6",
     "core-js": "^3.47.0",
+    "jquery": "^4.0.0",
     "lodash": "^4.17.21",
     "react": "^19.2.3",
     "react-dom": "^19.2.3"

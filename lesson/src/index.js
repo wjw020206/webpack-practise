@@ -87,14 +87,28 @@ root.append(img) */
 
 // console.log(_.join(['a', 'b', 'c'], '***'))
 
-function getComponent() {
-  return import('lodash').then(({ default: _ }) => {
-    var element = document.createElement('div')
-    element.innerHTML = _.join(['Code', 'Pencil'], '-')
-    return element
-  })
-}
+// 异步代码写法
+// function getComponent() {
+//   return import(/* webpackChunkName: "lodash" */ 'lodash').then(
+//     ({ default: _ }) => {
+//       var element = document.createElement('div')
+//       element.innerHTML = _.join(['Code', 'Pencil'], '-')
+//       return element
+//     },
+//   )
+// }
 
-getComponent().then((element) => {
-  document.body.appendChild(element)
-})
+// getComponent().then((element) => {
+//   document.body.appendChild(element)
+// })
+
+// 同步代码写法
+// import _ from 'lodash'
+
+// var element = document.createElement('div')
+// element.innerHTML = _.join(['Code', 'Pencil'], '-')
+// document.body.appendChild(element)
+
+// import test from './test'
+
+// console.log(test.name)
