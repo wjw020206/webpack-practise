@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunklesson=self.webpackChunklesson||[]).push([[653],{653:function(e,n){n.default=function(){const e=document.createElement("div");e.innerHTML="CodePencil",document.body.appendChild(e)}}}]);

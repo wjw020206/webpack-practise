@@ -312,3 +312,39 @@ document.addEventListener('click', () => {
 例如打包出了 loadash.js、main.js。
 
 在构建过程中生成了 main chunk 和 lodash chunk，它们最终分别输出为 main.js 和 lodash.js 这两个 bundle 文件。
+
+## 预获取/预加载模块
+
+在前端性能优化中，缓存所能带来的性能提升十分有限，应该提升代码的使用的覆盖率。
+
+可以通过 webpack 的预获取/预加载的魔法注释结合 `import()` 异步加载的方式
+
+**预获取（Prefetching）：** 指优先加载页面主要模块，对于 `import()` 异步加载的模块会在主要模块加载完成后，浏览器空闲时在后台自行下载，等到使用的时候会从缓存中再次加载
+
+**预加载（Preloading）：** 指页面的主要模块和其它的异步模块并行下载，预加载的数据块应立即被父数据块请求
+
+例如：
+
+```js
+document.addEventListener('click', () => {
+  import(/* webpackPrefetch: true */ './click').then(({ default: func }) => {
+    func()
+  })
+```
+
+上述代码的魔法注释是**预获取**，当点击事件触发时，从缓存（浏览器空闲时预获取了）中加载 `click` 模块。
+
+```js
+document.addEventListener('click', () => {
+  import(/* webpackPreload: true */ './click').then(({ default: func }) => {
+    func()
+  })
+```
+
+上述代码的魔法注释是**预加载**，主模块和 `click` 模块一起并行加载。
+
+## 打包分析
+
+可以通过一些插件或者第三方的网站来对打包结果进行分析。
+
+推荐：https://github.com/webpack/webpack-bundle-analyzer
