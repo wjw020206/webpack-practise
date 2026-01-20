@@ -6,6 +6,38 @@ const commonConfig = require('./webpack.common')
 const devCofig = {
   mode: 'development', // 模式, 'production' 打包会压缩代码，'development' 不会，默认是 'production', 不添加 mode，打包时控制台会有警告
   devtool: 'eval-cheap-module-source-map', // 推荐开发环境使用这种
+  module: {
+    // 配置模块打包规则
+    rules: [
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 2,
+            },
+          },
+          'postcss-loader',
+          'sass-loader',
+        ],
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+            },
+          },
+          'postcss-loader',
+        ],
+      },
+    ],
+  },
   // devtool: 'cheap-module-source-map', // 推荐生产环境使用这种
   // devtool: 'eval-cheap-module-source-map',
   // entry: './src/index.js', // 打包的入口文件,默认为 index.js

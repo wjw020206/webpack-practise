@@ -1,6 +1,5 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { optimize } = require('webpack')
 
 module.exports = {
   entry: {
@@ -32,33 +31,6 @@ module.exports = {
         },
       },
       {
-        test: /\.scss$/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 2,
-            },
-          },
-          'postcss-loader',
-          'sass-loader',
-        ],
-      },
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1,
-            },
-          },
-          'postcss-loader',
-        ],
-      },
-      {
         test: /\.(woff|woff2|ttf)$/,
         type: 'asset/resource',
       },
@@ -70,6 +42,7 @@ module.exports = {
     }),
   ],
   optimization: {
+    usedExports: true,
     splitChunks: {
       chunks: 'all', // 只对异步导入（import() 导入）进行分割，如果要对同步异步的代码都进行分割可以配置 'all'，'initial' 是只对同步代码进行分割
       // minSize: 20000, // 当库大小超过 20000 字节（20KB）时，进行代码分割，反之不分割
@@ -98,7 +71,8 @@ module.exports = {
     },
   },
   output: {
-    filename: '[name].js',
+    filename: '[name].js', // 入口文件使用 filename
+    chunkFilename: '[name].chunk.js', // 被入口文件所引用的模块文件名使用 chunkFilename
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
