@@ -2,7 +2,7 @@ const path = require('path') // node.js 的 path 核心模块
 const HtmlWebpackPlugin = require('html-webpack-plugin') // 在打包结束后自动生成一个 html 文件，并把打包生成的 js 自动引入到这个 html 文件中
 
 module.exports = {
-  mode: 'development', // 模式, 'production' 打包会压缩代码，'development' 不会，默认是 'production', 不添加 mode，打包时控制台会有警告
+  mode: 'production', // 模式, 'production' 打包会压缩代码，'development' 不会，默认是 'production', 不添加 mode，打包时控制台会有警告
   // devtool: 'eval-cheap-module-source-map',
   // devtool: 'eval-cheap-module-source-map', // 推荐开发环境使用这种
   // devtool: 'cheap-module-source-map', // 推荐生产环境使用这种
@@ -125,6 +125,10 @@ module.exports = {
       template: 'src/index.html', // 指定 html 的模版文件（相对或绝对路径）
     }),
   ],
+  /* // production 模式下自动开启，development 模式下开启了也不会剔除未使用的代码，但会在注释中标识
+  optimization: {
+    usedExports: true, // 指示 webpack 确定每个模块使用的导出项，启用 Tree Shaking
+  }, */
   devServer: {
     static: './dist', // 运行本地开发服务的目录，在 webpack 4 中为 contentBase
     // open: true, // 在系统默认浏览器中打开

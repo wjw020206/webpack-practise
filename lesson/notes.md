@@ -175,3 +175,55 @@ devtool: 'eval-cheap-module-source-map'
      console.log('server is running')
    })
    ```
+
+## Tree Shaking
+
+只支持 ES Module 引入方式，不支持 CommonJS 和 AMD 引入方式。
+
+因为后两者无法提供静态分析能力，需要运行时才能知道，在运行时动态改变。
+
+在 webpack5 中，当 `mode: 'production'` 时打包会自动开启 Tree Shanking
+
+对于没有明确导入的模块，webpack 依旧会打包进该模块。
+
+例如：
+
+```js
+import './index.css'
+```
+
+以及
+
+```js
+import 'core-js/stable'
+```
+
+以上模块没有明确使用导出，但是会有副作用（例如：css 会直接影响页面样式， core.js 会在 window 对象上添加属性）。
+
+可以在 `package.json` 中添加如果配置
+
+```json
+{
+  "sideEffects": ["*.css", "core-js/stable"]
+}
+```
+
+告诉 webpack 这两个模块即使没有明确使用导出也必须打包，其它未使用导出的模块，如果没有副作用，则会被 Tree Shaking 删除。
+
+如果整个项目/库没有副作用，可以直接写 `false`。
+
+```json
+{
+  "sideEffects": false
+}
+```
+
+如果不写 sideEffects 配置，默认情况下，对于未使用导出的模块，有副作用的保留，没副作用的删除。
+
+若不想使用 Tree Shaking 可以在 webpack 中使用如下配置关闭。
+
+```js
+optimization: {
+  usedExports: false,
+},
+```

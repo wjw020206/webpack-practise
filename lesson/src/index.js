@@ -70,10 +70,15 @@ root.append(img) */
 //   console.log(item)
 // })
 
-import { createRoot } from "react-dom/client";
+// import { createRoot } from "react-dom/client";
 
-function App() {
-  return <div>Hello World</div>;
-}
+// function App() {
+//   return <div>Hello World</div>;
+// }
 
-createRoot(document.getElementById("root")).render(<App />);
+// createRoot(document.getElementById("root")).render(<App />);
+
+// Tree Shaking 只支持 ES Module 引入方式，
+import { add } from './math.js'
+
+add(1, 2)
