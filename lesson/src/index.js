@@ -79,6 +79,22 @@ root.append(img) */
 // createRoot(document.getElementById("root")).render(<App />);
 
 // Tree Shaking 只支持 ES Module 引入方式，
-import { add } from './math.js'
+// import { add } from './math.js'
 
-add(1, 7)
+// add(1, 7)
+
+// import _ from 'lodash'
+
+// console.log(_.join(['a', 'b', 'c'], '***'))
+
+function getComponent() {
+  return import('lodash').then(({ default: _ }) => {
+    var element = document.createElement('div')
+    element.innerHTML = _.join(['Code', 'Pencil'], '-')
+    return element
+  })
+}
+
+getComponent().then((element) => {
+  document.body.appendChild(element)
+})

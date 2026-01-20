@@ -227,3 +227,55 @@ optimization: {
   usedExports: false,
 },
 ```
+
+## Code Splitting
+
+代码拆分，默认情况下 Webpack 会将所有模块打包成一个文件（假设 main.js，有 2MB 大小），这样做有以下缺点：
+
+1. 首次访问页面时，需要加载 main.js（2MB）
+2. 当业务逻辑模块修改时，又要加载 2MB 的内容
+
+通过使用 Code Splitting，可以将模块拆分，有以下优点：
+
+1. 假设 main.js 被拆分为 lodash.js（1MB）、main.js（1MB），浏览器可以并行加载文件来提升速度（不绝对）
+2. 当业务逻辑模块（main.js）发生变化，只需要重新加载 main.js 文件即可
+
+**在 webpack 中有两种方式启用 Code Splitting：**
+
+1. 编写同步代码，在 webpack.config.js 中写入如下配置
+
+   ```js
+   optimization: {
+     splitChunks: {
+       chunks: 'all'
+     }
+   }
+   ```
+
+   可以直接在代码中编写同步代码：
+
+   ```js
+   import _ from 'lodash'
+
+   var element = document.createElement('div')
+   element.innerHTML = _.join(['Code', 'Pencil'], '-')
+   document.body.appendChild(element)
+   ```
+
+2. 使用 `import()` 异步导入，无需编写其它配置
+
+   ```js
+   function getComponent() {
+     return import('lodash').then(({ default: _ }) => {
+       var element = document.createElement('div')
+       element.innerHTML = _.join(['Code', 'Pencil'], '-')
+       return element
+     })
+   }
+
+   getComponent().then((element) => {
+     document.body.appendChild(element)
+   })
+   ```
+
+   webpack 会自动识别 `import()` 进行代码分割。

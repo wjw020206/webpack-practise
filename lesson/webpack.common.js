@@ -1,8 +1,10 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { optimize } = require('webpack')
 
 module.exports = {
   entry: {
+    // lodash: './src/lodash.js',
     main: './src/index.js',
   },
   module: {
@@ -67,6 +69,11 @@ module.exports = {
       template: 'src/index.html', // 指定 html 的模版文件（相对或绝对路径）
     }),
   ],
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    }
+  },
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
