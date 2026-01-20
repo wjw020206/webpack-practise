@@ -81,4 +81,4 @@ root.append(img) */
 // Tree Shaking 只支持 ES Module 引入方式，
 import { add } from './math.js'
 
-add(1, 2)
+add(1, 7)

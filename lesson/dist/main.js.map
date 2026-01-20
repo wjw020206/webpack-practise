@@ -1,1 +1,0 @@
-{"version":3,"file":"main.js","mappings":"yBACEA,QAAQC,IAAIC,E","sources":["webpack://lesson/./src/math.js"],"sourcesContent":["export const add = (a, b) => {\n  console.log(a + b)\n}\n\nexport const minus = (a, b) => {\n  console.log(a - b)\n}"],"names":["console","log","a"],"ignoreList":[],"sourceRoot":""}

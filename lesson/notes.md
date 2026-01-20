@@ -90,7 +90,7 @@ npx webpack --config webpackconfig.js
   - 不包含列信息，只定位到行（更快）
 
 - `module`
-  - 能映射 loader 之前的源码（babel / ts 必须）
+  - 能映射 loader 转译前的源码（babel / ts 必须）
 
 - `eval`
   - 速度快，用 eval() 包代码

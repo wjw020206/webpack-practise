@@ -1,2 +1,1 @@
-!function(){"use strict";console.log(3)}();
-//# sourceMappingURL=main.js.map
+!function(){"use strict";console.log(8)}();
