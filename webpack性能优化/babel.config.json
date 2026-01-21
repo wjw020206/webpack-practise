@@ -1,0 +1,20 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "chrome": "67"
+        },
+        "useBuiltIns": "usage",
+        "corejs": "3.47.0"
+      }
+    ],
+    [
+      "@babel/preset-react", // 转换 react 代码
+      {
+        "runtime": "automatic" // react 18 以上需要使用 'automatic'
+      }
+    ]
+  ]
+}

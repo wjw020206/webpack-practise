@@ -419,3 +419,23 @@ rules: [
   },
 ]
 ```
+
+## webpack 性能优化
+
+1. 使用新版本的 Node.js、Webpack 以及包管理工具（npm、yarn、pnpm）
+
+2. 通过配置 Loader 的 `include` 和 `exclude` 限制打包返回，从而降低打包频率，提高性能
+
+3. 合理的使用可靠、Webpack 官方推荐的第三方的 Plugin，例如在开发环境下就不需要使用 CSS 压缩插件
+
+4. 合理的使用 resolve 中的配置，例如：
+   ```js
+   resolve: {
+    // 对于图片资源应该不省略扩展名，不要过多的使用 extensions
+     extensions: ['.js', '.jsx'], // 按顺序依次解析没有扩展名的导入
+     mainFiles: ['index'], // 解析目录时要使用的文件名
+     alias: {
+       '@': path.resolve(__dirname, './src'), // 路径别名
+     },
+   },
+   ```
