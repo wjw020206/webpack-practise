@@ -108,8 +108,8 @@ const commonConfig = {
 module.exports = (env) => {
   // 判断是否是生产环境
   if (env && env.production) {
-    return merge(devConfig, commonConfig)
-  } else {
     return merge(prodConfig, commonConfig)
+  } else {
+    return merge(devConfig, commonConfig)
   }
 }

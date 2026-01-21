@@ -1,0 +1,47 @@
+{
+  "name": "lesson",
+  "sideEffects": [
+    "*.css"
+  ],
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack serve --config webpack.common.js",
+    "build": "webpack --env production --config webpack.common.js",
+    "start": "http-server dist"
+  },
+  "keywords": [],
+  "author": "CodePencil",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.28.6",
+    "@babel/plugin-transform-runtime": "^7.28.5",
+    "@babel/preset-env": "^7.28.6",
+    "@babel/preset-react": "^7.28.5",
+    "autoprefixer": "^10.4.23",
+    "babel-loader": "^10.0.0",
+    "css-loader": "^7.1.2",
+    "css-minimizer-webpack-plugin": "^7.0.4",
+    "html-webpack-plugin": "^5.6.6",
+    "http-server": "^14.1.1",
+    "mini-css-extract-plugin": "^2.10.0",
+    "postcss": "^8.5.6",
+    "postcss-loader": "^8.2.0",
+    "sass": "^1.97.2",
+    "sass-loader": "^16.0.6",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.104.1",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.3",
+    "webpack-merge": "^6.0.1",
+    "workbox-webpack-plugin": "^7.4.0"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.28.6",
+    "@babel/runtime-corejs3": "^7.28.6",
+    "core-js": "^3.47.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  }
+}
