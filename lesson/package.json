@@ -9,9 +9,9 @@
   "scripts": {
     "bundle": "webpack",
     "watch": "webpack --watch",
-    "dev": "webpack serve --config webpack.dev.js",
-    "dev-build": "webpack --profile --json > stats.json --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js",
+    "dev": "webpack serve --config webpack.common.js",
+    "dev-build": "webpack --profile --json > stats.json --config webpack.common.js",
+    "build": "webpack --env production --config webpack.common.js",
     "server": "node server.js"
   },
   "keywords": [],

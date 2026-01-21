@@ -1,7 +1,5 @@
 // const path = require('path') // node.js 的 path 核心模块
 // const HtmlWebpackPlugin = require('html-webpack-plugin') // 在打包结束后自动生成一个 html 文件，并把打包生成的 js 自动引入到这个 html 文件中
-const { merge } = require('webpack-merge')
-const commonConfig = require('./webpack.common')
 
 const devCofig = {
   mode: 'development', // 模式, 'production' 打包会压缩代码，'development' 不会，默认是 'production', 不添加 mode，打包时控制台会有警告
@@ -187,4 +185,4 @@ const devCofig = {
   },
 }
 
-module.exports = merge(devCofig, commonConfig)
+module.exports = devCofig

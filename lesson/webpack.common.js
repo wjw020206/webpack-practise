@@ -1,8 +1,11 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
+const { merge } = require('webpack-merge')
+const devConfig = require('./webpack.dev')
+const prodConfig = require('./webpack.prod')
 
-module.exports = {
+const commonConfig = {
   entry: {
     // lodash: './src/lodash.js',
     main: './src/index.js',
@@ -100,4 +103,13 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
+}
+
+module.exports = (env) => {
+  // 判断是否是生产环境
+  if (env && env.production) {
+    return merge(devConfig, commonConfig)
+  } else {
+    return merge(prodConfig, commonConfig)
+  }
 }
