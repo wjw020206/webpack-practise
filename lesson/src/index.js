@@ -3,10 +3,15 @@
 
 // console.log('hello world')
 
-import _ from 'lodash'
-import $ from 'jquery'
+// import _ from 'lodash'
+// import $ from 'jquery'
+// import { ui } from './jquery.ui'
 
-const dom = $('div')
-dom.html(_.join(['Code', 'Pencil', ' ---']))
+// ui()
 
-$('body').append(dom)
+// const dom = $('div')
+// dom.html(_.join(['Code', 'Pencil'], '---'))
+
+// $('body').append(dom)
+
+console.log(this === window)

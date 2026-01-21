@@ -376,10 +376,46 @@ Cache-Control: public, max-age=31536000, immutable
 
 - 入口文件的 `index.html` 需要配置不强缓存，除非文件本身也使用 contenthash，否则即使 JS 文件名已经变了，也没机会被加载
 
-- 在老的 webpack 4 版本中，可能存在即使没改动源代码，打包出来的文件 contenthash 名依旧发生变化的问题，这是因为老版本的 webpack 4 打包时产生的 mainfest（管理模块映射、chunk 加载关系的一段 “运行时代码 + 数据”） 存在差异，这个 mainfest 嵌套在每个文件的内部，每次打包都会发生变化，所以导致 contenthash 也每次都变化，可以使用如下配置，将 mainfest 关系相关的代码抽离出来，单独放在 runtime 文件中，这样老版本的 Webpack 4 中就没有这个问题了
+- 在老的 webpack 4 版本中，可能存在即使没改动源代码，打包出来的文件 contenthash 名依旧发生变化的问题，这是因为老版本的 webpack 4 打包时产生的 mainfest（管理模块映射、chunk 加载关系的一段 “运行时代码 + 数据”） 存在差异，这个 mainfest 嵌套在每个文件的内部，每次打包都会发生变化，所以导致 contenthash 也每次都变化，可以使用如下配置，将 mainfest 关系相关的代码抽离出来，单独放在 single 文件中，这样老版本的 Webpack 4 中就没有这个问题了
 
   ```js
   runtimeChunk: {
-    name: 'runtime',
+    name: 'single',
   }
   ```
+
+## Shimming
+
+对于一些 ES2015 之前的库，这些第三方库可能需要全局依赖项（例如 jQuery 的 $ ），这些库可能创建需要导出的全局变量，此时就可以使用 Shimming 来兼容，在 webpack.config.js 中进行如下配置
+
+```js
+const webpack = require('webpack')
+
+module.exports = {
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: ['jquery', 'default'], // 获取 default 导出 jquery
+      _: 'lodash', // 导出 lodash
+    }),
+  ],
+}
+```
+
+如果要让模块中的 `this`（默认指向模块自身）执行全局变量 `window`，可以使用如下配置：
+
+```js
+// 配置模块打包规则
+rules: [
+  {
+    test: /\.js$/,
+    use: [
+      {
+        loader: 'imports-loader',
+        options: {
+          wrapper: 'window', // 将每个模块的 this 指向 window，原本默认 this 指向模块自身
+        },
+      },
+    ],
+  },
+]
+```
