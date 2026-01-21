@@ -429,6 +429,7 @@ rules: [
 3. 合理的使用可靠、Webpack 官方推荐的第三方的 Plugin，例如在开发环境下就不需要使用 CSS 压缩插件
 
 4. 合理的使用 resolve 中的配置，例如：
+
    ```js
    resolve: {
     // 对于图片资源应该不省略扩展名，不要过多的使用 extensions
@@ -439,3 +440,26 @@ rules: [
      },
    },
    ```
+
+5. 使用 Webpack 5 的 filesystem，直接缓存第三方库的编译结果
+   ```js
+   module.exports = {
+     cache: {
+       type: 'filesystem', // 构建缓存存在磁盘（默认是在 'memory' 内存中缓存，重启电脑后缓存消失）
+     },
+     optimization: {
+       runtimeChunk: 'single', // 将 webpack 运行时代码单独打包一个文件
+       splitChunks: {
+         chunks: 'all',
+         cacheGroups: {
+           vendors: {
+             test: /[\\/]node_modules[\\/]/,
+             priority: -10,
+             name: 'vendors', // 将第三方依赖单独打包进 vendors.js 中
+           },
+         },
+       },
+     },
+   }
+   ```
+   Webpack 4 不支持磁盘缓存，需要配置使用 DLL 方式避免第三方库重复编译，也是缓存第三方库的编译结果。
