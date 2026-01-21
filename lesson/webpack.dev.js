@@ -181,6 +181,10 @@ const devCofig = {
       },
     ],
   },
+  output: {
+    filename: '[name].js', // 入口文件使用 filename
+    chunkFilename: '[name].js', // 被入口文件所引用的模块文件名使用 chunkFilename
+  },
 }
 
 module.exports = merge(devCofig, commonConfig)

@@ -42,9 +42,23 @@ module.exports = {
     }),
   ],
   optimization: {
+    // 在老的 webpack 4 版本中，可能存在即使没改动源代码，打包出来的文件 contenthash 名依旧发生变化的问题
+    // 是因为老版本的 webpack 4 打包时产生的 mainfest（管理模块映射、chunk 加载关系的一段“运行时代码 + 数据”） 存在差异，这个 mainfest 嵌套在每个文件的内部，每次打包都会发生变化，所以导致 contenthash 也每次都变化。
+    // 可以使用如下配置，将 mainfest 关系相关的代码抽离出来，单独放在 runtime 文件中，这样老版本的 Webpack 4 中就没有这个问题了
+    runtimeChunk: {
+      name: 'runtime',
+    },
     usedExports: true,
     splitChunks: {
       chunks: 'all', // 只对异步导入（import() 导入）进行分割，如果要对同步异步的代码都进行分割可以配置 'all'，'initial' 是只对同步代码进行分割
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10,
+          reuseExistingChunk: true,
+          name: 'vendors',
+        },
+      },
       // minSize: 20000, // 当库大小超过 20000 字节（20KB）时，进行代码分割，反之不分割
       // minRemainingSize: 0, // 生成新数据块所需的最小大小缩减量（以字节为单位）
       // minChunks: 1, // 当一个模块被引入多少次时才进行代码分割
@@ -60,19 +74,18 @@ module.exports = {
       //     test: /[\\/]node_modules[\\/]/, // 判断是否是 node_modules 中的库
       //     priority: -10,
       //     reuseExistingChunk: true, // 如果一个模块已经被打包过了，再次打包时忽略该模块，复用之前打包过的模块
-      //     // filename: 'vendors.js', // 分割的文件名
+      //     // name: 'vendors.js', // 分割的文件名
       //   },
       //   default: {
       //     priority: -20,
       //     reuseExistingChunk: true,
-      //     // filename: 'common.js',
+      //     // name: 'common.js',
       //   },
       // },
     },
   },
+  performance: false,
   output: {
-    filename: '[name].js', // 入口文件使用 filename
-    chunkFilename: '[name].chunk.js', // 被入口文件所引用的模块文件名使用 chunkFilename
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },

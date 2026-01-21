@@ -5,7 +5,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 
 const prodConfig = {
   mode: 'production',
-  devtool: 'cheap-module-source-map',
+  // devtool: 'cheap-module-source-map',
   module: {
     // 配置模块打包规则
     rules: [
@@ -46,6 +46,10 @@ const prodConfig = {
   ],
   optimization: {
     minimizer: [new CssMinimizerPlugin()],
+  },
+  output: {
+    filename: '[name].[contenthash].js', // 入口文件使用 filename
+    chunkFilename: '[name].[contenthash].js', // 被入口文件所引用的模块文件名使用 chunkFilename
   },
 }
 

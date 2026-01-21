@@ -348,3 +348,38 @@ document.addEventListener('click', () => {
 可以通过一些插件或者第三方的网站来对打包结果进行分析。
 
 推荐：https://github.com/webpack/webpack-bundle-analyzer
+
+## webpack 和浏览器缓存
+
+通常默认情况下，例如浏览器下载了 a.js 文件就会进行缓存，除非文件名发生变化、后台返回 200 的状态或者携带了 `Cache-Control: no-cache` 响应头等情况才会重新下载新的文件而非走缓存。
+
+**推荐在 webbpack 配置 contenthash**，文件内容发生了变化，对应的文件名中的 hash 值就发生了变化，内容没变的文件，hash 值依旧是之前的，可以确保不变的文件依旧使用缓存中的，变化的文件下载是最新的。
+
+```js
+output: {
+  filename: '[name].[contenthash].js',
+  chunkFilename: '[name].[contenthash].js',
+}
+```
+
+然后在服务器配置响应头为强缓存。
+
+```
+200 OK
+Cache-Control: public, max-age=31536000, immutable
+```
+
+- `max-age=31536000`：缓存 1 年
+- `immutable`：这一年内内容绝不会变
+
+**⚠️ 注意：**
+
+- 入口文件的 `index.html` 需要配置不强缓存，除非文件本身也使用 contenthash，否则即使 JS 文件名已经变了，也没机会被加载
+
+- 在老的 webpack 4 版本中，可能存在即使没改动源代码，打包出来的文件 contenthash 名依旧发生变化的问题，这是因为老版本的 webpack 4 打包时产生的 mainfest（管理模块映射、chunk 加载关系的一段 “运行时代码 + 数据”） 存在差异，这个 mainfest 嵌套在每个文件的内部，每次打包都会发生变化，所以导致 contenthash 也每次都变化，可以使用如下配置，将 mainfest 关系相关的代码抽离出来，单独放在 runtime 文件中，这样老版本的 Webpack 4 中就没有这个问题了
+
+  ```js
+  runtimeChunk: {
+    name: 'runtime',
+  }
+  ```
