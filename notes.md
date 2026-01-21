@@ -442,6 +442,7 @@ rules: [
    ```
 
 5. 使用 Webpack 5 的 filesystem，直接缓存第三方库的编译结果
+
    ```js
    module.exports = {
      cache: {
@@ -462,4 +463,15 @@ rules: [
      },
    }
    ```
+
    Webpack 4 不支持磁盘缓存，需要配置使用 DLL 方式避免第三方库重复编译，也是缓存第三方库的编译结果。
+
+6. 使用 thread-loader，parallel-webpack 进行多线程打包
+
+7. 合理使用 SourceMap，SourceMap 越详细，打包速度越慢
+
+8. 结合 stats 或者可视化打包结果的插件分析打包耗时比较多的部分
+
+9. 开发环境使用内存编译进行打包
+
+10. 删除开发环境中无用的插件
